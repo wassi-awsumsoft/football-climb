@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Football Climb</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111;font-family:Arial,sans-serif;touch-action:none;user-select:none}
+canvas{display:block;width:100vw;height:100vh;background:#111}
+#mobileControls{position:fixed;inset:0;z-index:5;display:none;pointer-events:none}
+.ctrl{position:absolute;border:4px solid #ffd21f;border-radius:999px;width:70px;height:70px;color:#fff;font:900 12px Arial;background:rgba(0,0,0,.45);opacity:.82;pointer-events:auto}
+.ctrl.on{transform:scale(.94);filter:brightness(1.25)}
+.left{left:42px;bottom:32px}.right{left:124px;bottom:32px}.jump{right:170px;bottom:92px}.lob{right:82px;bottom:92px}.grab{right:126px;bottom:20px}
+@media (hover:none) and (pointer:coarse){#mobileControls{display:block}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+
+<div id="mobileControls">
+<button class="ctrl left" data-k="l">◀</button>
+<button class="ctrl right" data-k="r">▶</button>
+<button class="ctrl jump" data-k="u">Jump</button>
+<button class="ctrl lob" data-k="lob">Lob</button>
+<button class="ctrl grab" data-k="grab">Grab</button>
+</div>
+
+<script src="src/assets.js"></script>
+<script src="src/game.js"></script>
+</body>
+</html>
