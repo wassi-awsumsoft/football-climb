@@ -73,8 +73,21 @@ filter:brightness(1.18);
 #rotate h2{font-size:28px;margin:0 0 10px}
 #rotate p{font-size:16px;margin:0}
 
-@media (hover:none) and (pointer:coarse){#mobileControls{display:block}}
-@media (hover:none) and (pointer:coarse) and (orientation:portrait){#rotate{display:flex}#mobileControls{display:none}}
+#mobileControls{display:block}
+
+@media (hover:hover) and (pointer:fine){
+  #mobileControls{display:none}
+}
+
+@media (orientation:portrait){
+  #rotate{display:flex}
+  #mobileControls{display:none}
+}
+
+@media (hover:hover) and (pointer:fine) and (orientation:portrait){
+  #rotate{display:none}
+}
+ 
 </style>
 </head>
 <body>
