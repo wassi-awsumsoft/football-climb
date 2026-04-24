@@ -7,10 +7,25 @@
 <style>
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111;font-family:Arial,sans-serif;touch-action:none;user-select:none}
 canvas{display:block;width:100vw;height:100vh;background:#111}
+#modeScreen{position:fixed;inset:0;z-index:30;background:linear-gradient(#16384a,#111);display:flex;align-items:center;justify-content:center;color:#fff;text-align:center}
+.card{width:320px;padding:26px;border-radius:24px;background:rgba(255,255,255,.1)}
+.card img{width:92px;height:92px;border-radius:22px;margin-bottom:14px}
+.card h1{font-size:30px;margin:0 0 8px}
+.card p{font-size:15px;margin:0 0 20px;opacity:.9}
+.modeBtn{border:0;border-radius:999px;color:#fff;font:900 18px Arial;padding:14px 30px;margin:8px;width:220px}
+.normal{background:#3498db;box-shadow:0 5px 0 #21618c}
+.easy{background:#2ecc71;box-shadow:0 5px 0 #239b56}
 #mobileControls{position:fixed;inset:0;z-index:5;display:none;pointer-events:none}
 .ctrl{position:absolute;border:4px solid #ffd21f;border-radius:999px;width:70px;height:70px;color:#fff;font:900 12px Arial;background:rgba(0,0,0,.45);opacity:.82;pointer-events:auto}
 .ctrl.on{transform:scale(.94);filter:brightness(1.25)}
-.left{left:42px;bottom:32px}.right{left:124px;bottom:32px}.jump{right:170px;bottom:92px}.lob{right:82px;bottom:92px}.grab{right:126px;bottom:20px}
+.left{left:42px;bottom:32px}
+.right{left:124px;bottom:32px}
+.jump{right:170px;bottom:92px}
+.lob{right:82px;bottom:92px}
+.grab{right:126px;bottom:20px}
+.easyMode .jump{right:128px;bottom:78px}
+.easyMode .lob{right:54px;bottom:32px}
+.easyMode .grab{display:none}
 #rotate{position:fixed;inset:0;background:#000;color:#fff;z-index:20;display:none;align-items:center;justify-content:center;text-align:center;padding:24px}
 #rotate h2{font-size:28px;margin:0 0 10px}
 #rotate p{font-size:16px;margin:0}
@@ -21,17 +36,46 @@ canvas{display:block;width:100vw;height:100vh;background:#111}
 <body>
 <canvas id="c"></canvas>
 
-<div id="rotate"><div><h2>Rotate Device</h2><p>Please rotate your phone to landscape to play.</p></div></div>
+<div id="modeScreen">
+  <div class="card">
+    <img src="assets/ball/football.png" alt="">
+    <h1>Football Climb</h1>
+    <p>Select game mode</p>
+    <button class="modeBtn normal" onclick="loadGame('normal')">Normal Mode</button>
+    <button class="modeBtn easy" onclick="loadGame('easy')">Easy Mode</button>
+  </div>
+</div>
+
+<div id="rotate">
+  <div>
+    <h2>Rotate Device</h2>
+    <p>Please rotate your phone to landscape to play.</p>
+  </div>
+</div>
 
 <div id="mobileControls">
-<button class="ctrl left" data-k="l">◀</button>
-<button class="ctrl right" data-k="r">▶</button>
-<button class="ctrl jump" data-k="u">Jump</button>
-<button class="ctrl lob" data-k="lob">Lob</button>
-<button class="ctrl grab" data-k="grab">Grab</button>
+  <button class="ctrl left" data-k="l">◀</button>
+  <button class="ctrl right" data-k="r">▶</button>
+  <button class="ctrl jump" data-k="u">Jump</button>
+  <button class="ctrl lob" data-k="lob">Lob</button>
+  <button class="ctrl grab" data-k="grab">Grab</button>
 </div>
 
 <script src="src/assets.js"></script>
-<script src="src/game.js"></script>
+<script>
+function loadGame(mode){
+  document.getElementById('modeScreen').style.display='none';
+
+  if(mode==='easy'){
+    document.body.classList.add('easyMode');
+  }else{
+    document.body.classList.remove('easyMode');
+  }
+
+  const script=document.createElement('script');
+  script.src=mode==='easy'?'src/game_easy.js':'src/game.js';
+  document.body.appendChild(script);
+}
+</script>
 </body>
 </html>
