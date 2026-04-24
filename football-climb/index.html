@@ -23,27 +23,48 @@ canvas{display:block;width:100vw;height:100vh;background:#111}
 
 .ctrl{
 position:absolute;
-width:78px;
-height:78px;
+width:92px;
+height:92px;
+border:0;
+padding:0;
+margin:0;
+outline:0;
+appearance:none;
+-webkit-appearance:none;
+background-color:transparent;
 background-size:contain;
 background-repeat:no-repeat;
 background-position:center;
-opacity:.9;
+box-shadow:none;
+opacity:.92;
 pointer-events:auto;
 }
-.ctrl:active{transform:scale(.9);opacity:1}
 
-/* LEFT SIDE */
-.left{left:36px;bottom:34px;background-image:url('assets/ui/button_left.png')}
-.right{left:120px;bottom:34px;background-image:url('assets/ui/button_right.png')}
+.ctrl:active,
+.ctrl.on{
+transform:scale(.92);
+opacity:1;
+filter:brightness(1.18);
+}
 
-/* NORMAL MODE (3 BUTTONS RIGHT) */
-.jump{right:170px;bottom:92px;background-image:url('assets/ui/button_jump.png')}
-.lob{right:82px;bottom:92px;background-image:url('assets/ui/button_lob.png')}
-.grab{right:126px;bottom:20px;background-image:url('assets/ui/button_grab.png')}
+/* Image assets */
+.left{background-image:url("assets/ui/button_left.png")}
+.right{background-image:url("assets/ui/button_right.png")}
+.jump{background-image:url("assets/ui/button_jump.png")}
+.lob{background-image:url("assets/ui/button_lob.png")}
+.grab{background-image:url("assets/ui/button_grab.png")}
 
-/* EASY MODE (2 BUTTONS RIGHT) */
-.easyMode .jump{right:128px;bottom:78px}
+/* LEFT SIDE (same for both modes) */
+.left{left:34px;bottom:34px}
+.right{left:128px;bottom:34px}
+
+/* NORMAL MODE (3 buttons right - matches your layout) */
+.jump{right:190px;bottom:60px}
+.lob{right:90px;bottom:60px}
+.grab{right:140px;bottom:6px}
+
+/* EASY MODE (2 buttons right - matches red marks) */
+.easyMode .jump{right:170px;bottom:34px}
 .easyMode .lob{right:54px;bottom:34px}
 .easyMode .grab{display:none}
 
