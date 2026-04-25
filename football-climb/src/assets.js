@@ -12,6 +12,7 @@ const ASSETS={
   },
   ball:'assets/ball/football.png',
   coin:'assets/coins/coin_1.png',
+  coinSpin:'assets/coins/coin_spin.png',
   ground:'assets/platforms/ground.png',
   wall:'assets/platforms/stone_wall.png',
   grass:'assets/platforms/grass_top.png',
