@@ -32,11 +32,7 @@ const ASSETS={
     buttonRight:'assets/ui/button_right.png',
     buttonJump:'assets/ui/button_jump.png',
     buttonLob:'assets/ui/button_lob.png',
-    buttonGrab:'assets/ui/button_grab.png',
-    settings:'assets/ui/settings.png',
-    closeCross:'assets/ui/close_cross.png',
-    bgmusic:'assets/ui/bgmusic.png',
-    soundfx:'assets/ui/soundfx.png'
+    buttonGrab:'assets/ui/button_grab.png'
   }
 };
 
