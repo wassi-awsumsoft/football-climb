@@ -8,13 +8,19 @@
 @font-face{font-family:'DynaPuff';src:url('assets/ui/DynaPuff-Variable.woff2') format('woff2');font-weight:400 700;font-display:swap}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#111;font-family:'DynaPuff';touch-action:none;user-select:none}
 canvas{display:block;width:100vw;height:100vh;background:#111}
+
 #modeScreen{position:fixed;inset:0;z-index:30;background:linear-gradient(#16384a,#111);display:flex;align-items:center;justify-content:center;color:#fff;text-align:center}
-.card{width:min(340px,86vw);padding:28px;border-radius:26px;background:rgba(255,255,255,.11);box-shadow:0 14px 40px rgba(0,0,0,.28)}
-.card img{width:96px;height:96px;border-radius:24px;margin-bottom:14px}
+.card{width:min(360px,88vw);padding:28px;border-radius:26px;background:rgba(255,255,255,.11);box-shadow:0 14px 40px rgba(0,0,0,.28)}
+.hero{height:120px;margin-bottom:12px;display:flex;align-items:flex-end;justify-content:center;gap:12px}
+.heroPlayer{width:96px;height:128px;background-image:url('assets/player/player_sheet.png');background-size:576px 128px;background-position:0 0;background-repeat:no-repeat}
+.heroBall{width:58px;height:58px;margin-bottom:10px;background-image:url('assets/ball/football.png');background-size:contain;background-position:center;background-repeat:no-repeat}
 .card h1{font-size:32px;font-weight:600;margin:0 0 10px}
-.card p{font-size:16px;font-weight:600;margin:0 0 22px;opacity:.92}
-.modeBtn{border:0;border-radius:999px;color:#fff;font:600 18px 'DynaPuff';padding:15px 30px;margin:8px;width:230px}
-.normal{background:#3498db;box-shadow:0 6px 0 #21618c}.easy{background:#2ecc71;box-shadow:0 6px 0 #239b56}
+.card p{font-size:16px;font-weight:600;margin:0 0 24px;opacity:.92}
+.modeBtn{border:0;border-radius:999px;color:#fff;font:600 18px 'DynaPuff';padding:15px 30px;margin:0;width:240px}
+.normal{background:#ff0000;box-shadow:0 6px 0 #a80000}
+.easy{background:#05e800;box-shadow:0 6px 0 #039b00}
+.modeActions{display:flex;flex-direction:column;align-items:center;gap:22px}
+
 #mobileControls{position:fixed;inset:0;z-index:5;display:block;pointer-events:none;--btn:clamp(78px,13vmin,104px);--bottom:calc(env(safe-area-inset-bottom) + 4.5vmin);--leftArrow:calc(env(safe-area-inset-left) + var(--btn)*.65 + 16px);--rightArrow:calc(env(safe-area-inset-left) + var(--btn)*.65 + var(--btn)*1.5);--rightStart:calc(env(safe-area-inset-right) + var(--btn)*.42)}
 .ctrl{position:absolute;width:var(--btn);height:var(--btn);border:0;padding:0;margin:0;outline:0;appearance:none;-webkit-appearance:none;background-color:transparent;background-size:contain;background-repeat:no-repeat;background-position:center;box-shadow:none;opacity:.94;pointer-events:auto}
 .ctrl:active,.ctrl.on{transform:scale(.92);opacity:1;filter:brightness(1.18)}
@@ -26,8 +32,10 @@ canvas{display:block;width:100vw;height:100vh;background:#111}
 .easyMode .jump{right:calc(var(--rightStart) + var(--btn)*1.56);bottom:var(--bottom)}
 .easyMode .lob{right:calc(var(--rightStart) - var(--btn)*.08 + 32px);bottom:var(--bottom)}
 .easyMode .grab{display:none}
+
 #rotate{position:fixed;inset:0;background:#000;color:#fff;z-index:20;display:none;align-items:center;justify-content:center;text-align:center;padding:24px}
-#rotate h2{font-size:30px;font-weight:600;margin:0 0 10px}#rotate p{font-size:17px;font-weight:600;margin:0}
+#rotate h2{font-size:30px;font-weight:600;margin:0 0 10px}
+#rotate p{font-size:17px;font-weight:600;margin:0}
 @media (hover:hover) and (pointer:fine){#mobileControls{display:none}}
 @media (orientation:portrait){#rotate{display:flex}#mobileControls{display:none}}
 @media (hover:hover) and (pointer:fine) and (orientation:portrait){#rotate{display:none}}
@@ -35,12 +43,46 @@ canvas{display:block;width:100vw;height:100vh;background:#111}
 </head>
 <body>
 <canvas id="c"></canvas>
-<div id="modeScreen"><div class="card"><img src="assets/ball/football.png"><h1>Football Climb</h1><p>Select game mode</p><button class="modeBtn normal" onclick="loadGame('normal')">Normal Mode</button><button class="modeBtn easy" onclick="loadGame('easy')">Easy Mode</button></div></div>
-<div id="rotate"><div><h2>Rotate Device</h2><p>Please rotate your phone to landscape to play.</p></div></div>
-<div id="mobileControls"><button class="ctrl left" data-k="l"></button><button class="ctrl right" data-k="r"></button><button class="ctrl jump" data-k="u"></button><button class="ctrl lob" data-k="lob"></button><button class="ctrl grab" data-k="grab"></button></div>
+
+<div id="modeScreen">
+  <div class="card">
+    <div class="hero">
+      <div class="heroPlayer"></div>
+      <div class="heroBall"></div>
+    </div>
+    <h1>Football Climb</h1>
+    <p>Select game mode</p>
+    <div class="modeActions">
+      <button class="modeBtn normal" onclick="loadGame('normal')">Normal Mode</button>
+      <button class="modeBtn easy" onclick="loadGame('easy')">Easy Mode</button>
+    </div>
+  </div>
+</div>
+
+<div id="rotate">
+  <div>
+    <h2>Rotate Device</h2>
+    <p>Please rotate your phone to landscape to play.</p>
+  </div>
+</div>
+
+<div id="mobileControls">
+  <button class="ctrl left" data-k="l"></button>
+  <button class="ctrl right" data-k="r"></button>
+  <button class="ctrl jump" data-k="u"></button>
+  <button class="ctrl lob" data-k="lob"></button>
+  <button class="ctrl grab" data-k="grab"></button>
+</div>
+
 <script src="src/assets.js"></script>
 <script>
-function loadGame(mode){document.getElementById('modeScreen').style.display='none';document.body.classList.toggle('easyMode',mode==='easy');const script=document.createElement('script');script.src=mode==='easy'?'src/game_easy.js':'src/game.js';document.body.appendChild(script)}
+function loadGame(mode){
+  document.getElementById('modeScreen').style.display='none';
+  document.body.classList.toggle('easyMode',mode==='easy');
+  const script=document.createElement('script');
+  script.src=mode==='easy'?'src/game_easy.js':'src/game.js';
+  document.body.appendChild(script);
+}
 </script>
 </body>
 </html>
