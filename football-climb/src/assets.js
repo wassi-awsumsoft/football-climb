@@ -18,6 +18,7 @@ const ASSETS={
   wall:'assets/platforms/stone_wall.png',
   grass:'assets/platforms/grass_top.png',
   underground:'assets/platforms/underground.png',
+  jungleTileset:'assets/platforms/jungle_tileset.png',
   bg:'assets/background/city_1.png',
   backgrounds:Array.from({length:BG_COUNT},(_,i)=>`assets/background/city_${i+1}.png`),
   ui:{
