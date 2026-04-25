@@ -3,13 +3,14 @@ const IMG={player:{},ui:{},backgrounds:[]};
 const BG_COUNT=3;
 
 const ASSETS={
-  player:{
-    idle:'assets/player/idle.png',
-    runL:'assets/player/run-left.png',
-    runR:'assets/player/run-right.png',
-    jumpL:'assets/player/jump-left.png',
-    jumpR:'assets/player/jump-right.png'
-  },
+ player:{
+  sheet:'assets/player/player_sheet.png',
+  idle:'assets/player/idle.png',
+  runL:'assets/player/run-left.png',
+  runR:'assets/player/run-right.png',
+  jumpL:'assets/player/jump-left.png',
+  jumpR:'assets/player/jump-right.png'
+},
   ball:'assets/ball/football.png',
   coin:'assets/coins/coin_1.png',
   coinSpin:'assets/coins/coin_spin.png',
