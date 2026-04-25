@@ -35,10 +35,63 @@ function draw(){x.clearRect(0,0,W,H);let s=Math.min(W/BW,H/BH),left=(W-BW*s)/2,t
 function drawBg(){let bg=(IMG.backgrounds&&IMG.backgrounds.length)?IMG.backgrounds[levelIndex%IMG.backgrounds.length]:IMG.bg;if(ok(bg))x.drawImage(bg,0,0,BW,BH);else{x.fillStyle='#7ec8e3';x.fillRect(0,0,BW,BH)}}
 function drawUnderground(){for(const q of plats)if(q.type==='ground')drawJungleBlock(q.x,q.y+q.h,q.w,BH-(q.y+q.h),'underground')}
 function drawLevel(){for(const q of plats){if(q.type==='ground')drawJungleBlock(q.x,q.y,q.w,q.h,'ground');else if(q.type==='wall')drawJungleBlock(q.x,q.y,q.w,q.h,'wall');else drawJunglePlatform(q.x,q.y,q.w,q.h)}} 
-const JT={cell:256,full:[0,0],dirt:[1,0],stone:[2,0],left:[0,1],top:[1,1],right:[2,1],platformL:[0,2],platformM:[1,2],platformR:[2,2]};
-function drawJungleTile(name,dx,dy,dw=64,dh=64){let img=IMG.jungleTileset;if(!ok(img))return false;let t=JT[name]||JT.full,cs=JT.cell;x.drawImage(img,t[0]*cs,t[1]*cs,cs,cs,dx,dy,dw,dh);return true}
-function drawJungleBlock(px,py,w,h,kind){if(!h||h<=0)return;if(!ok(IMG.jungleTileset)){if(kind==='ground')drawTiled(IMG.ground,px,py,w,h,TILE.ground[0],TILE.ground[1],'#27ae60');else if(kind==='wall')drawTiled(IMG.wall,px,py,w,h,TILE.wall[0],TILE.wall[1],'#7f8c8d');else drawTiled(IMG.underground,px,py,w,h,TILE.underground[0],TILE.underground[1],'#9fbf7a');return}let size=64;x.save();x.beginPath();x.rect(px,py,w,h);x.clip();for(let yy=py;yy<py+h;yy+=size){let row=Math.round((yy-py)/size);for(let xx=px;xx<px+w;xx+=size){let tw=Math.min(size,px+w-xx),th=Math.min(size,py+h-yy),tile='dirt';if(kind==='wall')tile='stone';else if(kind==='ground')tile=row===0?'full':'dirt';drawJungleTile(tile,xx,yy,tw,th)}}x.restore()}
-function drawJunglePlatform(px,py,w,h){if(!ok(IMG.jungleTileset)){drawGrass(px,py,w,h);return}let size=64,dh=Math.max(32,h);x.save();x.beginPath();x.rect(px,py,w,h);x.clip();for(let xx=px;xx<px+w;xx+=size){let last=xx+size>=px+w,tw=Math.min(size,px+w-xx);drawJungleTile(xx===px?'platformL':last?'platformR':'platformM',xx,py,tw,dh)}x.restore()}
+const JT={
+  full:{x:70,y:78,w:228,h:222},
+  dirt:{x:1309,y:1350,w:176,h:165},
+  stone:{x:1523,y:1779,w:199,h:182},
+  platformL:{x:842,y:661,w:191,h:77},
+  platformM:{x:1074,y:659,w:200,h:68},
+  platformR:{x:1306,y:657,w:168,h:76}
+};
+function drawJungleTile(name,dx,dy,dw=64,dh=64){
+  const img=IMG.jungleTileset;
+  if(!ok(img))return false;
+  const t=JT[name]||JT.full;
+  x.drawImage(img,t.x,t.y,t.w,t.h,dx,dy,dw,dh);
+  return true;
+}
+function drawJungleBlock(px,py,w,h,kind){
+  if(!h||h<=0)return;
+  if(!ok(IMG.jungleTileset)){
+    if(kind==='ground')drawTiled(IMG.ground,px,py,w,h,TILE.ground[0],TILE.ground[1],'#27ae60');
+    else if(kind==='wall')drawTiled(IMG.wall,px,py,w,h,TILE.wall[0],TILE.wall[1],'#7f8c8d');
+    else drawTiled(IMG.underground,px,py,w,h,TILE.underground[0],TILE.underground[1],'#9fbf7a');
+    return;
+  }
+  const size=64, bleed=1;
+  x.save();
+  x.beginPath();
+  x.rect(px,py,w,h);
+  x.clip();
+  for(let yy=py;yy<py+h;yy+=size){
+    const row=((yy-py)/size)|0;
+    for(let xx=px;xx<px+w;xx+=size){
+      const tw=Math.min(size,px+w-xx), th=Math.min(size,py+h-yy);
+      let tile='dirt';
+      if(kind==='wall')tile='stone';
+      else if(kind==='ground')tile=row===0?'full':'dirt';
+      drawJungleTile(tile,xx,yy,tw+bleed,th+bleed);
+    }
+  }
+  x.restore();
+}
+function drawJunglePlatform(px,py,w,h){
+  if(!ok(IMG.jungleTileset)){
+    drawGrass(px,py,w,h);
+    return;
+  }
+  const size=64, bleed=1, dh=Math.max(32,h);
+  x.save();
+  x.beginPath();
+  x.rect(px,py,w,h);
+  x.clip();
+  for(let xx=px;xx<px+w;xx+=size){
+    const last=xx+size>=px+w;
+    const tw=Math.min(size,px+w-xx);
+    drawJungleTile(xx===px?'platformL':(last?'platformR':'platformM'),xx,py,tw+bleed,dh);
+  }
+  x.restore();
+}
 function drawGrass(px,py,w,h){if(!ok(IMG.grass)){x.fillStyle='#2ecc71';x.fillRect(px,py,w,h);return}let tw=TILE.grass[0],th=TILE.grass[1],offset=8;x.save();x.beginPath();x.rect(px,py,w,h);x.clip();for(let xx=px;xx<px+w;xx+=tw)x.drawImage(IMG.grass,xx,py-offset,tw,th);x.restore()}
 function drawTiled(img,px,py,w,h,tw,th,col){if(!h||h<=0)return;if(!ok(img)){x.fillStyle=col;x.fillRect(px,py,w,h);return}x.save();x.beginPath();x.rect(px,py,w,h);x.clip();for(let yy=py;yy<py+h;yy+=th)for(let xx=px;xx<px+w;xx+=tw)x.drawImage(img,xx,yy,tw,th);x.restore()}
 function drawCoins(){let t=performance.now()/130;for(const o of coins)if(!o.t){let yy=o.y+Math.sin(t*.55+o.x*.04)*7;let img=IMG.coinSpin||IMG.coin;if(ok(img)){let frames=4,fw=img.naturalWidth/frames,fh=img.naturalHeight;let frame=Math.floor(t+o.x*.01)%frames;x.drawImage(img,frame*fw,0,fw,fh,o.x-o.r,o.y-o.r+(yy-o.y),o.r*2,o.r*2);}else{x.fillStyle='gold';x.beginPath();x.ellipse(o.x,yy,o.r,o.r,0,0,7);x.fill();}}} 
