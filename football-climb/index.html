@@ -15,16 +15,16 @@ canvas{display:block;width:100vw;height:100vh;background:#111}
 .card p{font-size:16px;font-weight:600;margin:0 0 22px;opacity:.92}
 .modeBtn{border:0;border-radius:999px;color:#fff;font:600 18px 'DynaPuff';padding:15px 30px;margin:8px;width:230px}
 .normal{background:#3498db;box-shadow:0 6px 0 #21618c}.easy{background:#2ecc71;box-shadow:0 6px 0 #239b56}
-#mobileControls{position:fixed;inset:0;z-index:5;display:block;pointer-events:none;--btn:clamp(78px,13vmin,104px);--bottom:calc(env(safe-area-inset-bottom) + 4.5vmin);--leftStart:calc(env(safe-area-inset-left) + var(--btn)*.65);--rightStart:calc(env(safe-area-inset-right) + var(--btn)*.42)}
+#mobileControls{position:fixed;inset:0;z-index:5;display:block;pointer-events:none;--btn:clamp(78px,13vmin,104px);--bottom:calc(env(safe-area-inset-bottom) + 4.5vmin);--leftArrow:calc(env(safe-area-inset-left) + var(--btn)*.65 + 16px);--rightArrow:calc(env(safe-area-inset-left) + var(--btn)*.65 + var(--btn)*1.5);--rightStart:calc(env(safe-area-inset-right) + var(--btn)*.42)}
 .ctrl{position:absolute;width:var(--btn);height:var(--btn);border:0;padding:0;margin:0;outline:0;appearance:none;-webkit-appearance:none;background-color:transparent;background-size:contain;background-repeat:no-repeat;background-position:center;box-shadow:none;opacity:.94;pointer-events:auto}
 .ctrl:active,.ctrl.on{transform:scale(.92);opacity:1;filter:brightness(1.18)}
-.left{left:var(--leftStart);bottom:var(--bottom);background-image:url('assets/ui/button_left.png')}
-.right{left:calc(var(--leftStart) + var(--btn)*1.5);bottom:var(--bottom);background-image:url('assets/ui/button_right.png')}
+.left{left:var(--leftArrow);bottom:var(--bottom);background-image:url('assets/ui/button_left.png')}
+.right{left:var(--rightArrow);bottom:var(--bottom);background-image:url('assets/ui/button_right.png')}
 .jump{right:calc(var(--rightStart) + var(--btn)*1.62);bottom:calc(var(--bottom) + var(--btn)*.72 + 16px);background-image:url('assets/ui/button_jump.png')}
 .lob{right:calc(var(--rightStart) + var(--btn)*.48);bottom:calc(var(--bottom) + var(--btn)*.72 + 16px);background-image:url('assets/ui/button_lob.png')}
 .grab{right:calc(var(--rightStart) + var(--btn)*1.05);bottom:var(--bottom);background-image:url('assets/ui/button_grab.png')}
 .easyMode .jump{right:calc(var(--rightStart) + var(--btn)*1.56);bottom:var(--bottom)}
-.easyMode .lob{right:calc(var(--rightStart) - var(--btn)*.08);bottom:var(--bottom)}
+.easyMode .lob{right:calc(var(--rightStart) - var(--btn)*.08 + 16px);bottom:var(--bottom)}
 .easyMode .grab{display:none}
 #rotate{position:fixed;inset:0;background:#000;color:#fff;z-index:20;display:none;align-items:center;justify-content:center;text-align:center;padding:24px}
 #rotate h2{font-size:30px;font-weight:600;margin:0 0 10px}#rotate p{font-size:17px;font-weight:600;margin:0}
